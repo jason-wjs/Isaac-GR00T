@@ -78,7 +78,7 @@ python gr00t/experiment/launch_finetune.py --help
 ```bash
 # Configure for single GPU
 export NUM_GPUS=1
-CUDA_VISIBLE_DEVICES=0 python \
+CUDA_VISIBLE_DEVICES=0 uv run python \
     gr00t/experiment/launch_finetune.py \
     --base-model-path nvidia/GR00T-N1.6-3B \
     --dataset-path ./demo_data/cube_to_bowl_5 \

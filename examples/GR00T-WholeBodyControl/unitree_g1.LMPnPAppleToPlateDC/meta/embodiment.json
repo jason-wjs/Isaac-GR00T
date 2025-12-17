@@ -1,0 +1,6 @@
+{
+    "record_frequency": 50.0,
+    "robot_name": "G1",
+    "robot_type": "humanoid",
+    "embodiment_tag": "unitree_g1_full_body_with_height_nav_cmd_sim"
+}

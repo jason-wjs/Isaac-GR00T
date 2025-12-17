@@ -108,6 +108,20 @@ uv sync --python 3.10
 uv pip install -e .
 ```
 
+**Alternative: Installing without uv**
+
+If you prefer not to use `uv`, you can use standard Python tools:
+
+```sh
+# Create a virtual environment with Python 3.10
+python3.10 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies and the package
+pip install --upgrade pip setuptools wheel
+pip install -e .
+```
+
 > Note: CUDA 12.4 is recommended and officially tested. However, CUDA 11.8 has also been verified to work.
 > In such cases, make sure to install a compatible version of `flash-attn` manually (e.g., `flash-attn==2.8.2` was confirmed working with CUDA 11.8).
 
