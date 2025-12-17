@@ -105,11 +105,17 @@ def run(config: Config):
     if dist.is_initialized():
         global_rank = dist.get_rank()
     elif "WORLD_SIZE" in os.environ and int(os.environ["WORLD_SIZE"]) > 1:
-        dist.init_process_group(backend="nccl")
         # only meaningful for torchrun, for ray it is always 0
         local_rank = int(os.environ["LOCAL_RANK"])
-        torch.cuda.set_device(local_rank)
+        # 显式创建 device 对象
+        device = torch.device(f"cuda:{local_rank}")
+        torch.cuda.set_device(device)
+        # 在 init_process_group 中传入 device_id，解决 unknown device 警告
+        dist.init_process_group(backend="nccl", device_id=device)
         global_rank = dist.get_rank()
+
+        # torch.cuda.set_device(local_rank)
+        # global_rank = dist.get_rank()
     else:
         local_rank = 0
         global_rank = 0
@@ -140,14 +146,15 @@ def run(config: Config):
     omegaconf_config["save_steps"] = config.training.save_steps
     OmegaConf.save(omegaconf_config, save_cfg_dir / "conf.yaml", resolve=True)
     wandb_config_file = output_dir / "wandb_config.json"
-    with open(wandb_config_file, "w") as f:
-        json.dump(
-            {
-                "project": config.training.wandb_project,
-                "run_id": experiment_name,
-            },
-            f,
-        )
+    if global_rank == 0:
+        with open(wandb_config_file, "w") as f:
+            json.dump(
+                {
+                    "project": config.training.wandb_project,
+                    "run_id": experiment_name,
+                },
+                f,
+            )
 
     logging.info(f"Saved config to {save_cfg_dir}")
 
