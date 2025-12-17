@@ -54,3 +54,7 @@ class EmbodimentTag(Enum):
     """
     Any new embodiment.
     """
+    LEJU_KUAVO = "leju_kuavo"
+    """
+    The Kuavo robot.
+    """

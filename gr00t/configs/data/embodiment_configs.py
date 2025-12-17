@@ -88,6 +88,73 @@ MODALITY_CONFIGS = {
             modality_keys=["annotation.human.task_description"],
         ),
     },
+    "leju_kuavo": {
+        "video": ModalityConfig(
+            delta_indices=[0],
+            modality_keys=["ego_view", "left_hand_camera", "right_hand_camera"],
+        ),
+        "state": ModalityConfig(
+            delta_indices=[0],
+            modality_keys=[
+                "left_leg",
+                "right_leg",
+                "left_arm",
+                "right_arm",
+                "left_hand",
+                "right_hand",
+                "head",
+            ],
+        ),
+        "action": ModalityConfig(
+            delta_indices=list(range(30)),
+            modality_keys=[
+                # "left_leg",
+                # "right_leg",
+                "left_arm",
+                "right_arm",
+                "left_hand",
+                "right_hand",
+                "head",
+            ],
+            action_configs=[
+                # left_arm
+                ActionConfig(
+                    rep=ActionRepresentation.RELATIVE,
+                    type=ActionType.NON_EEF,
+                    format=ActionFormat.DEFAULT,
+                ),
+                # right_arm
+                ActionConfig(
+                    rep=ActionRepresentation.RELATIVE,
+                    type=ActionType.NON_EEF,
+                    format=ActionFormat.DEFAULT,
+                ),
+                # left_hand
+                ActionConfig(
+                    rep=ActionRepresentation.RELATIVE,  # Kuavo hand
+                    type=ActionType.NON_EEF,
+                    format=ActionFormat.DEFAULT,
+                ),
+                # right_hand
+                ActionConfig(
+                    rep=ActionRepresentation.RELATIVE,  # Kuavo hand 
+                    type=ActionType.NON_EEF,
+                    format=ActionFormat.DEFAULT,
+                ),
+                # head
+                ActionConfig(
+                    rep=ActionRepresentation.RELATIVE,
+                    type=ActionType.NON_EEF,
+                    format=ActionFormat.DEFAULT,
+                ),
+
+            ],
+        ),
+        "language": ModalityConfig(
+            delta_indices=[0],
+            modality_keys=["annotation.human.action.task_description"],
+        ),
+    },
     "libero_panda": {
         "video": ModalityConfig(
             delta_indices=[0],

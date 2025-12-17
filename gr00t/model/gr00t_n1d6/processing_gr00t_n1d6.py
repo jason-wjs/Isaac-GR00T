@@ -41,6 +41,7 @@ EMBODIMENT_TAG_TO_PROJECTOR_INDEX = {
     "oxe_google": 0,
     "oxe_widowx": 1,
     "new_embodiment": 10,
+    "leju_kuavo": 11,
 }
 
 
